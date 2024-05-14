@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Extractor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload an Image to Extract Colors</h1>
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*">
+            <button type="submit">Upload</button>
+        </form>
+
+        {% if dominant_color and palette %}
+        <div class="results">
+            <h2>Extracted Colors</h2>
+            <div class="color-info">
+                <div class="color" style="background-color: rgb({{ dominant_color[0] }}, {{ dominant_color[1] }}, {{ dominant_color[2] }});"></div>
+                <span>Dominant Color</span>
+            </div>
+            <h3>Palette</h3>
+            <div class="palette">
+                {% for color in palette %}
+                <div class="color" style="background-color: rgb({{ color[0] }}, {{ color[1] }}, {{ color[2] }});"></div>
+                {% endfor %}
+            </div>
+            <img src="{{ image_url }}" alt="Uploaded Image">
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
